@@ -1,4 +1,10 @@
+--Program to answer exercise 4.2 in E.T. Jaynes' Probability Theory.
+--To test alternate data, simply change numBadWidgets/numGoodWidgets
+--To change the hypothesis being tested, simply edit odds and the update function
+--that provides the update rules for each hypothesis
+
 import Data.Ratio
+import Language.Haskell.Exts (function)
 
 numBadWidgets = 33
 
