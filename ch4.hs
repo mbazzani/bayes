@@ -39,17 +39,17 @@ main = do
   let posteriorOdds = update hypothesisList odds numBadWidgets numGoodWidgets
       floatUpdatedOdds = map fromRational posteriorOdds
       probabilities = map (\x -> x / sum floatUpdatedOdds) floatUpdatedOdds
-  print ("Total good widgets: " ++ show numGoodWidgets)
-  print ("Total bad widgets: " ++ show numBadWidgets)
-  putStr $ concat $ map showHypothesisAndProbabilities (zip hypothesisList probabilities)
+  putStrLn ("Total good widgets: " ++ show numGoodWidgets)
+  putStr ("Total bad widgets: " ++ show numBadWidgets)
+  putStr $ concat $ zipWith showHypothesisProbabilities hypothesisList probabilities
 
-showHypothesisAndProbabilities :: Show a => (Hypothesis, a) -> String
-showHypothesisAndProbabilities (hypothesis, probability) =
+showHypothesisProbabilities :: Show a => Hypothesis -> a -> String
+showHypothesisProbabilities hypothesis probability =
   "\n\nPrior Odds: "
-    ++ (show $ fromRational $ priorOdds hypothesis)
-    ++ "\nPredicted Bad Widget Frequency: "
-    ++ (show $ fromRational $ badWidgetProbability hypothesis)
-    ++ "\nLikelihood after observing the Data: "
+    ++ show (fromRational $ priorOdds hypothesis)
+    ++ "\nPredicted bad widget frequency: "
+    ++ show (fromRational $ badWidgetProbability hypothesis)
+    ++ "\nLikelihood after observing the data: "
     ++ show probability
 
 update :: (Ord t, Ord a, Num t, Num a) => [Hypothesis] -> [Ratio Integer] -> t -> a -> [Ratio Integer]
