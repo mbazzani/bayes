@@ -21,10 +21,12 @@ choose n k
 fac :: (Num a, Enum a) => a -> a
 fac n = product [1 .. n]
 
+probability :: (Fractional a1, Integral a2) => a2 -> a2 -> a2 -> a1
 probability totalNum numOfColor numToDraw =
   fromIntegral (choose (totalNum - numOfColor) numToDraw) / fromIntegral (choose totalNum numToDraw)
 
 --Sums the probability of at least one color not being chosen
+sumProbability :: (Fractional a1, Num a, Eq a) => Integer -> Integer -> a -> a1
 sumProbability n_i m numPropositions
   | numPropositions == 1 = probability totalBalls n_i m
   | otherwise =
@@ -34,5 +36,5 @@ sumProbability n_i m numPropositions
 
 main :: IO ()
 main = do
-  let probabilityChooseOneOfEach = 1 - sumProbability ballsPerColor numToDraw numColors
-  print $ probabilityChooseOneOfEach
+  let probabilityChooseOneOfEach = 1 - (sumProbability ballsPerColor numToDraw numColors)
+  print probabilityChooseOneOfEach
